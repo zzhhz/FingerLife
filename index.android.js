@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class FingerLife extends Component {
+/*export default class FingerLife extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
-
+});*/
+var FingerLife = require('./common/MainTabView');
 AppRegistry.registerComponent('FingerLife', () => FingerLife);
