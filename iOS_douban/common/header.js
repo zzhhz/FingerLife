@@ -9,7 +9,7 @@ import {
 
 } from 'react-native';
 
-var Icon = require('../../resources/img/ic_gray_back.png')
+var Icon = require('./left_icon')
 
 var Header = React.createClass({
     render: function () {

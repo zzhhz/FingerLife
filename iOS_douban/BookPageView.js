@@ -14,7 +14,9 @@ var BookPageView = React.createClass({
     }
 });
 
-var styles = StyleSheet.create({});
+var styles = StyleSheet.create({
+
+});
 
 
 module.exports = BookPageView;
