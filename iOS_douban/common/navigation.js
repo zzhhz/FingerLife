@@ -1,14 +1,8 @@
 import React from 'react';
 import {
-    StyleSheet,
-    Text,
     View,
-    ActivityIndicator,
-    AppRegistry,
-    TouchableOpacity,
-    TextInput,
-    Navigator
 } from 'react-native';
+import {Navigator} from 'react-native-deprecated-custom-components';
 
 
 var Navigation = React.createClass({

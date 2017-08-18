@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 
 var Utils = {
-    windowSize:{
-        width:Dimensions.get('window').width,
-        height:Dimensions.get('window').height
+    windowSize: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height
     },
 
     //get
@@ -25,13 +25,13 @@ var Utils = {
      * @param successCallback 成功回调方法
      * @param failCall 失败回调方法
      */
-    getRequest:function (url, successCallback, failCall) {
+    getRequest: function (url, successCallback, failCall) {
         fetch(url).then((response) => response.json())
-            .then((responseData)=>successCallback(responseData))
+            .then((responseData) => successCallback(responseData))
             .catch((error) => failCall(error));
 
     },
-    loading:<ActivityIndicator style={{marginTop:200}}/>
+    loading: <ActivityIndicator style={{marginTop: 200}}/>
 
 };
 

@@ -11,6 +11,8 @@ import {
 
 } from 'react-native';
 
+var BookList = require('./book/book_list');
+var Navigation = require('./common/navigation');
 
 var MainPageView = React.createClass({
 
@@ -31,10 +33,7 @@ var MainPageView = React.createClass({
 
                 icon={require('../resources/img/main/tab/ic_recommend_select.png')}
             >
-                <View style={{backgroundColor: 'yellow'}}>
-                    <Text>手动阀大是大非
-                    </Text>
-                </View>
+                <Navigation component={BookList}/>
             </TabBarIOS.Item>
             <TabBarIOS.Item
                 title="电影"
