@@ -4,7 +4,7 @@
  * @Email: zzh_hz@126.com
  * @QQ: 1299234582
  * @Author: zzh
- * @Description:
+ * @Description: 个人中心页面
  */
 
 import React, {Component} from 'react';
