@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 var BookList = require('./book/book_list');
+var MovieList = require('./movie/movie_list');
 var Navigation = require('./common/navigation');
 
 var MainPageView = React.createClass({
@@ -19,7 +20,6 @@ var MainPageView = React.createClass({
     getInitialState: function () {
         return {selectedTab: '图书'};
     },
-
     render: function () {
         return (<TabBarIOS>
             <TabBarIOS.Item
@@ -30,9 +30,7 @@ var MainPageView = React.createClass({
                         selectedTab: '图书'
                     })
                 }}
-
-                icon={require('../resources/img/main/tab/ic_recommend_select.png')}
-            >
+                icon={require('../resources/img/main/tab/ic_recommend_select.png')}>
                 <Navigation component={BookList}/>
             </TabBarIOS.Item>
             <TabBarIOS.Item
@@ -43,14 +41,8 @@ var MainPageView = React.createClass({
                         selectedTab: '电影'
                     })
                 }}
-
-                icon={require('../resources/img/main/tab/ic_quality.png')}
-
-            >
-                <View style={{backgroundColor: 'red'}}>
-                    <Text>手动阀大是大非
-                    </Text>
-                </View>
+                icon={require('../resources/img/main/tab/ic_quality.png')}>
+                <Navigation component={MovieList}/>
             </TabBarIOS.Item>
         </TabBarIOS>);
     }

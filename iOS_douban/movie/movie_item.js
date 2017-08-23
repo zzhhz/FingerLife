@@ -33,7 +33,7 @@ var MovieItem = React.createClass({
                 <View style={styles.imageContainer}><Image
                     style={styles.image}
                     resizeMode='contain'
-                    source={{uri: movie.image.medium}}/></View>
+                    source={{uri: movie.images.medium}}/></View>
                 <View style={styles.contentContainer}>
                     <View style={styles.textContainer} numberOfLines={1}>
                         <Text>
@@ -54,7 +54,7 @@ var MovieItem = React.createClass({
                     <View style={styles.textContainer} numberOfLines={1}>
                         <Text>标签：{movie.year}</Text>
                     </View>
-                    <View style={styles.textContainer}  ={1}>
+                    <View style={styles.textContainer} numberOfLines ={1}>
                         <Text></Text>
                     </View>
 
