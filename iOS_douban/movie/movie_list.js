@@ -35,21 +35,47 @@ var MovieList = React.createClass({
         return {
             dataSource: ds,
             show: false,
-            keywords: '哈利波特'
+            keywords: '暮光之城'
         };
     },
+    _changeText: function (text) {
+        this.setState({
+            keywords: text
+        });
+    },
+    _searchPress: function () {
+        this.getData();
+    },
+    _showDetail: function (title, url) {
+        var detailRoute = {
+            component: MovieWebView,
+            passProps: {
+                backName: "电影",
+                url: url,
+                title: title,
+                barTitle: title
+            }
+        };
+        this.props.navigator.push(detailRoute);
+    }
+    ,
+
     render: function () {
 
         return (
             <ScrollView>
-                <SearchBar/>
+                <SearchBar
+                    placeholder="请输入电影名称"
+                    onPress={this._searchPress}
+                    onChangeText={this._changeText}
+                />
                 {
                     this.state.show ?
                         <ListView
-                            dataSource ={this.state.dataSource}
-                            initialListSize ={10}
-                            renderRow ={this._renderRow}
-                            renderSeparator ={this._renderSeparator}
+                            dataSource={this.state.dataSource}
+                            initialListSize={10}
+                            renderRow={this._renderRow}
+                            renderSeparator={this._renderSeparator}
                         />
                         :
                         Util.loading
@@ -59,16 +85,17 @@ var MovieList = React.createClass({
 
 
     },
-    _renderRow:function (movie) {
+    _renderRow: function (movie) {
         return <MovieItem
             movie={movie}
+            onPress={this._showDetail.bind(this, movie.title, movie.alt)}
         />;
     },
-    _renderSeparator:function (sectionID:number, rowID:number) {
+    _renderSeparator: function (sectionID: number, rowID: number) {
 
         var style = {
-            height:1,
-            backgroundColor:'#CCCCCC'
+            height: 1,
+            backgroundColor: '#CCCCCC'
         }
         return <View style={style} key={sectionID + rowID}/>;
     },
@@ -99,9 +126,7 @@ var MovieList = React.createClass({
         })
     }
 });
-var styles = StyleSheet.create({
-
-});
+var styles = StyleSheet.create({});
 
 module.exports = MovieList;
 

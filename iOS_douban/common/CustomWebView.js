@@ -1,13 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet,
-    Text,
     View,
-    ActivityIndicator,
-    AppRegistry,
-    TouchableOpacity,
-    TextInput,
-    Navigator,
     WebView
 } from 'react-native';
 
@@ -21,8 +14,7 @@ var CustomWebView = React.createClass({
                         initObj={{
                             backName: this.props.backName,
                             barTitle: this.props.barTitle
-                        }}
-                />
+                        }}/>
                 <WebView
                     startInLoadingState={true}
                     contentInset={{top: -44, bottom: -120}}

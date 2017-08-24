@@ -29,3 +29,5 @@ var styles = StyleSheet.create({
        transform:[{rotate:'45deg'}] //将一个矩形框旋转45度
    }
 });
+
+module.exports = Icon;

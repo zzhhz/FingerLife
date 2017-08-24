@@ -42,7 +42,8 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#CCC',
-        paddingLeft: 5
+        paddingLeft: 5,
+        color:'#000000'
     },
     btn: {
         width: 55,

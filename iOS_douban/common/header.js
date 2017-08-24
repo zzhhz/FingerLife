@@ -13,11 +13,8 @@ var Icon = require('./left_icon')
 
 var Header = React.createClass({
     render: function () {
-
         //获取实例 backName,barTitle
         var headerContent = this.props.initObj;
-
-
         return (
             <View style={styles.header}>
                 <TouchableOpacity style={styles.left_btn} onPress ={this._pop}>
@@ -32,8 +29,7 @@ var Header = React.createClass({
                 </View>
             </View>
         );
-    }
-    ,
+    },
     _pop:function () {
         this.props.navigator.pop();
     }
