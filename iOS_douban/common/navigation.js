@@ -14,17 +14,17 @@ var Navigation = React.createClass({
         return (
             <Navigator
                 initialRoute={rootRoute}
-                configureScene={() => {
-                    Navigator.SceneConfigs.FloatFromRight
-                }}
                 renderScene={
-
-
                     (route, navigator) => {
                         var Component = route.component;
                         return (<View style={{flex: 1}}>
                             <Component
                                 navigator={navigator}
+                                /**
+                                configureScene={() => {
+                    Navigator.SceneConfigs.PushFromRight
+                }}
+                                * */
                                 route={route}
                                 {...route.passProps}
                             />

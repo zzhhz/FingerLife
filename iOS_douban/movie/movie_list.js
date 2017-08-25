@@ -52,7 +52,6 @@ var MovieList = React.createClass({
             passProps: {
                 backName: "电影",
                 url: url,
-                title: title,
                 barTitle: title
             }
         };
@@ -96,7 +95,7 @@ var MovieList = React.createClass({
         var style = {
             height: 1,
             backgroundColor: '#CCCCCC'
-        }
+        };
         return <View style={style} key={sectionID + rowID}/>;
     },
     componentDidMount: function () {
@@ -123,7 +122,7 @@ var MovieList = React.createClass({
 
         }, function (error) {
             alert(error);
-        })
+        });
     }
 });
 var styles = StyleSheet.create({});
