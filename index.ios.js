@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });*/
-var FingerLife = require('./iOS_douban/MainPageView');
+var FingerLife = require('./common/MainTabView');
+//var FingerLife = require('./iOS_douban/MainPageView');
 
 AppRegistry.registerComponent('FingerLife', () => FingerLife);
