@@ -31,7 +31,23 @@ var Utils = {
             .catch((error) => failCall(error));
 
     },
-    loading: <ActivityIndicator style={{marginTop: 200}}/>
+    loading: <ActivityIndicator style={{marginTop: 200}}/>,
+    parseParams: function (formData) {
+        /*var form = formData;
+        var F = new FormData();
+        for (var i = 0; i < form.length; i++) {
+            let parts = F.getParts();
+            parts.length;
+            parts.
+        }*/
+        let parts = formData.getParts();
+        //parts.entries();
+        var str = "";
+        for (var i = 0; i < parts.length; i++) {
+            str = str + parts.pop().toString();
+        }
+        alert(str);
+    }
 
 };
 
