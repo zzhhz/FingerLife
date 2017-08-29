@@ -3,7 +3,7 @@ import {
     Dimensions,
     ActivityIndicator,
 } from 'react-native';
-
+var Constants = require('./Constants');
 var Utils = {
     /**
      * 屏幕尺寸
@@ -24,20 +24,7 @@ var Utils = {
             failedCallback(error));
     },
     parseParams: function (formData, call) {
-        /*var form = formData;
-        var F = new FormData();
-        for (var i = 0; i < form.length; i++) {
-            let parts = F.getParts();
-            parts.length;
-            parts.
-        }*/
-        let parts = formData.getParts();
-        //parts.entries();
-        var str = "";
-        for (var i = 0; i < parts.length; i++) {
-            str = str + parts.pop().toString();
-        }
-        (str) => call(str);
+
     },
     postRequest: function (url, formData, successCallback, failedCallback) {
         fetch(url,{
@@ -50,6 +37,9 @@ var Utils = {
         }).then((response) => response.json()).then((json) => successCallback(json)).catch((error) =>
             failedCallback(error));
     },
+    getUrl:function (url) {
+        return Constants.URL + url;
+    }
 
 };
 
