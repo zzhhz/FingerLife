@@ -4,7 +4,7 @@
  * @Email: zzh_hz@126.com
  * @QQ: 1299234582
  * @Author: zzh
- * @Description: 个人中心页面
+ * @Description: 个人中心页面，
  */
 
 import React, {Component} from 'react';
@@ -18,6 +18,7 @@ import {
 
 var LineItem = require('../view/Line3Item');
 var Utils = require('../utils/Utils');
+var Constants = require('../utils/Constants');
 
 var MineTabView = React.createClass({
 
@@ -163,7 +164,7 @@ var MineTabView = React.createClass({
         var params = "{\'userId\':\'ee95856487fc4063bb443234b8240a43\',\'overType\':\'1\'}";
 
         formData.append("data", params);
-        Utils.postRequest('http://192.168.200.232/userInfo/1219', formData, function (json) {
+        Utils.postRequest(Constants.USER_DETAIL, formData, function (json) {
             alert(json.result);
             that.setState({
                 userInfo: json.mine,

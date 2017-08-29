@@ -32,9 +32,7 @@ var HomeTabView = React.createClass({
     },
 
     render: function () {
-        return (/*<View style={styles.container}>
-            <Text>这是一首页页面</Text>
-        </View>*/
+        return (
             <View style={styles.container}>
                 <HomeSearchBar/>
                 {
@@ -96,7 +94,6 @@ var styles = StyleSheet.create({
         paddingTop: 20,
         backgroundColor: Colors.Background
     }
-
 });
 
 module.exports = HomeTabView;
