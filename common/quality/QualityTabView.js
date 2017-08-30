@@ -21,19 +21,32 @@ var QualityTabView = React.createClass({
 
     render: function () {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <QualityBar initObj={{title: '济南'}}/>
-            </View>
+                <View style={styles.altBlock}></View>
+                <View style={styles.altBlock2}></View>
+
+
+            </ScrollView>
         );
     }
 });
-
 
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
+    },
+    altBlock: {
+        flex: 1,
+        height: 200,
+        backgroundColor: '#ffc655'
+    },
+    altBlock2: {
+        flex: 1,
+        height: 200,
+        backgroundColor: '#8588ff'
     }
 
 });

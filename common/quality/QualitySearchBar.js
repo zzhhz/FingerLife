@@ -44,7 +44,6 @@ var styles = StyleSheet.create({
     },
     left: {
         height: 40,
-        width: 80,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
