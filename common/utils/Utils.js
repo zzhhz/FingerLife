@@ -31,7 +31,6 @@ var Utils = {
             method:'POST',
             headers:{
                 'Accept':'application/json',
-                'Content-Type':'application/json'
             },
             body:formData
         }).then((response) => response.json()).then((json) => successCallback(json)).catch((error) =>
