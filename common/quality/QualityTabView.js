@@ -6,27 +6,34 @@
  * @Author: zzh
  * @Description: 品质 tab页面
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    ScrollView
 } from 'react-native';
+//导航栏
+var QualityBar = require('./QualitySearchBar');
+
 
 var QualityTabView = React.createClass({
 
     render: function () {
-        return (<View style={styles.container}>
-            <Text>这是一品质商城页面</Text>
-        </View>);
+        return (
+            <View style={styles.container}>
+                <QualityBar initObj={{title: '济南'}}/>
+            </View>
+        );
     }
 });
 
+
+
 var styles = StyleSheet.create({
-    container:{
-        flex:1,
-        paddingTop:20
+    container: {
+        flex: 1,
+        paddingTop: 20,
     }
 
 });

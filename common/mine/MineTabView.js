@@ -165,7 +165,7 @@ var MineTabView = React.createClass({
 
         formData.append("data", params);
         Utils.postRequest(Constants.USER_DETAIL, formData, function (json) {
-            alert(json.result);
+            //alert(json.result);
             that.setState({
                 userInfo: json.mine,
             });

@@ -27,7 +27,8 @@ var HomeTabView = React.createClass({
         return {
             isRefresh: true,
             recommend: [],
-            totalPage:-1
+            totalPage: -1,
+            currentPage:0,
         };
     },
 
@@ -38,13 +39,25 @@ var HomeTabView = React.createClass({
                 {
                     this.state.isRefresh ? Utils.loading :
                         <FlatList
+                            ref={(flatList) => this._flatList = flatList}
+                            refreshing ={this.state.isRefresh}
+                            onRefresh ={()=>Utils.loading}
                             data={this.state.recommend}
-                            renderItem={({item}) => <RecomedItem recommend ={item.value}/>}
+                            renderItem={({item}) => <RecomedItem recommend={item.value}/>}
                             keyExtractor={this._keyExtractor}
-                            initialNumToRender ={5}
+                            initialNumToRender={5}
+                            onEndReachedThreshold={0.1}
                             onEndReached={(info) => {
-                                alert("滑动到底部了");
-                            } }
+                                if (this.state.currentPage < this.state.totalPage){
+                                    this.getRecommendList(this.state.currentPage+1)
+                                } else {
+                                    alert("没有更多的数据了");
+                                }
+                            }}
+                            onScrollToEnd={(info) => {
+                                alert("onScrollToEnd 滑动到底部了");
+                            }}
+
                         />
                 }
             </View>);
@@ -52,7 +65,7 @@ var HomeTabView = React.createClass({
     _keyExtractor: function (item, index) {
         return item.key + index;
     },
-    getRecommendList: function () {
+    getRecommendList: function (currentPage) {
         var formData = new FormData();
         var params = "{\"pageNum\":\"10\",\"userId\":\"76c626cee9e34097aa8b01abdd0b8ef1\",\"cityId\":\"370100\",\"currentPage\":\"0\"}";
         formData.append("data", params);
@@ -70,9 +83,10 @@ var HomeTabView = React.createClass({
                 });
 
                 that.setState({
-                    recommend: dataBlob,
+                    recommend: that.state.recommend.concat(dataBlob),
                     isRefresh: false,
-                    totalPage:json.totalPage
+                    totalPage: json.totalPage,
+                    currentPage: currentPage,
                 });
                 dataBlob = null;
             } else {
@@ -83,7 +97,7 @@ var HomeTabView = React.createClass({
         });
     },
     componentDidMount: function () {
-        this.getRecommendList();
+        this.getRecommendList(0);
     }
 
 });
