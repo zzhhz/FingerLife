@@ -5,6 +5,7 @@ var Constants = {
     URL:BASE_URL,
     USER_DETAIL : BASE_URL+'userInfo/1219',
     RECOMMEND:BASE_URL+'recommendArticle/7001',
+    QUALITY_LIST: BASE_URL+"homeCategory/homeInit"
 }
 
 module.exports = Constants;
