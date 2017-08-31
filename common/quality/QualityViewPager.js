@@ -25,7 +25,7 @@ var QualityViewPager = React.createClass({
                     dataSource={obj}
                     renderPage={this._renderPage}
                     isLoop={true}
-                    autoPlay={false}
+                    autoPlay={true}
                 />
             </View>
         );

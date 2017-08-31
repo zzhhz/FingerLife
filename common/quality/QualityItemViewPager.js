@@ -4,27 +4,42 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView, Image
+    ScrollView,
+    Image,
+    FlatList,
 } from 'react-native';
+import ViewPager from 'react-native-viewpager';
 const Utils = require('../utils/Utils');
 export default class QualityItemViewPager extends React.Component {
+    constructor(){
+        super();
+        this.state ={
+
+        };
+    }
 
     render() {
         let homeCategoryList = this.props.initObj.ListBean;
 
         return (
-            <ScrollView
-                horizontal={true}
-                style={styles.itemContainer}
-            >
-
-                {
-                    //alert(homeCategoryList)
-                    //homeCategoryList.map((item, i) => this._renderItem(item, i))
-
-                }
-
-            </ScrollView>
+            <View
+                style={styles.itemContainer}>
+                <ViewPager
+                    dataSource ={homeCategoryList}
+                    renderPage = {this._renderPage}
+                    isLoop={true}
+                    autoPlay={false}
+                />
+            </View>
+        );
+    }
+    _renderPage(data, pageId){
+        return (
+            <FlatList
+                data ={data.value}
+                numColumns ={4}
+                renderItem ={(item)=>this._renderItem}
+            />
         );
     }
 
@@ -38,6 +53,8 @@ export default class QualityItemViewPager extends React.Component {
             </View>
         );
     }
+
+
 
 
 }

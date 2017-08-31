@@ -49,8 +49,8 @@ var QualityTabView = React.createClass({
                 <QualityBar initObj={{title: '济南'}}/>
                 <QualityAdsViewPager initObj={{ds: this.state.dataSource, obj: this.state.dataSource}}
                                      style={styles.altBlock}/>
-                {/*<QualityItemViewPager initObj ={{ListBean:this.state.qualityItem}}
-                                      style={styles.altBlock2}/>*/}
+                {<QualityItemViewPager initObj ={{ListBean:this.state.qualityItem}}
+                                      style={styles.altBlock2}/>}
             </ScrollView>
         );
     },
@@ -64,7 +64,6 @@ var QualityTabView = React.createClass({
         var that = this;
         Utils.postRequest(Constants.QUALITY_LIST, formData, function (json) {
             if ('200' === json.result) {
-
                 let ad = [];
                 for (let i in  json.homeAdInfoList){
                     ad.push(i.appImgpath)
@@ -73,6 +72,25 @@ var QualityTabView = React.createClass({
                 var dataSource = new ViewPager.DataSource({
                     pageHasChanged: (p1, p2) => p1 !== p2,
                 });
+                //下面8个子选项，可能是左右滑动的ViewPager, 每个视图里面最多显示八个 , dddcccc
+                let tmpQualityItem = json.homeCategoryList;
+                let cateory = [];
+                if (tmpQualityItem.length > 8){
+                    let len = tmpQualityItem.length / 8 +1;
+                    //TODO 每8个 fen yi zu , fang dao shu zu li mian 
+                    for (let i = 0;i<len;i++){
+
+                        let start = i * 8 ;
+                    }
+                } else {
+                    cateory.push({
+                        key:0,
+                        value:tmpQualityItem
+                    })
+                }
+
+
+
 
                 that.setState({
                     obj: dataSource.cloneWithPages(json.homeAdInfoList),
