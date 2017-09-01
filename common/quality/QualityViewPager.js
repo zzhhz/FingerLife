@@ -33,7 +33,7 @@ var QualityViewPager = React.createClass({
     _renderPage: function (data, pageID) {
         return (
             <Image
-                source={{uri: Utils.getUrl(data.appImgpath)}}
+                source={{uri: data}}
                 style={[styles.container,{backgroundColor:'red'}]}/>
         );
     },

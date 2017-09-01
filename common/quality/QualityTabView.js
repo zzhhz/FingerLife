@@ -18,7 +18,6 @@ var QualityBar = require('./QualitySearchBar');
 var QualityAdsViewPager = require('./QualityViewPager');
 var Utils = require('../utils/Utils');
 var Constants = require('../utils/Constants');
-var QualityItemViewPager = require('./QualityItemViewPager');
 
 var IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -35,10 +34,15 @@ var QualityTabView = React.createClass({
         var dataSource = new ViewPager.DataSource({
             pageHasChanged: (p1, p2) => p1 !== p2,
         });
+        var adb = [];
+        let num = 0;
+        for (let i in  IMGS){
+            adb.push(i);
+            num++;
+        }
 
         return {
-            dataSource: dataSource,
-            obj: [],
+            obj: dataSource.cloneWithPages(adb),
             qualityItem: []
         };
     },
@@ -47,10 +51,10 @@ var QualityTabView = React.createClass({
         return (
             <ScrollView style={styles.container}>
                 <QualityBar initObj={{title: '济南'}}/>
-                <QualityAdsViewPager initObj={{ds: this.state.dataSource, obj: this.state.dataSource}}
+                <QualityAdsViewPager initObj={{obj: this.state.obj}}
                                      style={styles.altBlock}/>
-                {<QualityItemViewPager initObj ={{ListBean:this.state.qualityItem}}
-                                      style={styles.altBlock2}/>}
+                {/*<QualityItemViewPager initObj={{ListBean: this.state.qualityItem}}
+                                       style={styles.altBlock2}/>*/}
             </ScrollView>
         );
     },
@@ -64,9 +68,9 @@ var QualityTabView = React.createClass({
         var that = this;
         Utils.postRequest(Constants.QUALITY_LIST, formData, function (json) {
             if ('200' === json.result) {
-                let ad = [];
-                for (let i in  json.homeAdInfoList){
-                    ad.push(i.appImgpath)
+                var ads = [];
+                for (let i in  json.homeAdInfoList) {
+                    ads.push(i.appImgpath);
                 }
 
                 var dataSource = new ViewPager.DataSource({
@@ -74,33 +78,38 @@ var QualityTabView = React.createClass({
                 });
                 //下面8个子选项，可能是左右滑动的ViewPager, 每个视图里面最多显示八个 , dddcccc
                 let tmpQualityItem = json.homeCategoryList;
-                let cateory = [];
-                if (tmpQualityItem.length > 8){
-                    let len = tmpQualityItem.length / 8 +1;
-                    //TODO 每8个 fen yi zu , fang dao shu zu li mian 
-                    for (let i = 0;i<len;i++){
-
-                        let start = i * 8 ;
+                let category = [];
+                if (tmpQualityItem.length > 8) {
+                    let len = tmpQualityItem.length / 8 + 1;
+                    //TODO 每8个分为一组
+                    for (let i = 0; i < len; i++) {
+                        let start = i * 8;
+                        let end = start + 8;
+                        if (end > tmpQualityItem.length) {
+                            end = tmpQualityItem.length - 1;
+                        }
+                        var tmpArr = tmpQualityItem.slice(start, end);
+                        category.push({key: i, value: tmpArr});
                     }
                 } else {
-                    cateory.push({
-                        key:0,
-                        value:tmpQualityItem
+                    category.push({
+                        key: 0,
+                        value: tmpQualityItem
                     })
                 }
 
-
+                alert(category.length);
 
 
                 that.setState({
-                    obj: dataSource.cloneWithPages(json.homeAdInfoList),
-                    dataSource:dataSource.cloneWithPages(json.homeAdInfoList)
+                    obj: dataSource.cloneWithPages(ads),
+                    qualityItem: category
                 });
             } else {
                 alert(json.error);
             }
         }, function (error) {
-            alert(json.error);
+            alert(error);
         });
     }
 });
