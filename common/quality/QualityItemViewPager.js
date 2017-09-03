@@ -10,16 +10,9 @@ import {
 } from 'react-native';
 import ViewPager from 'react-native-viewpager';
 const Utils = require('../utils/Utils');
-export default class QualityItemViewPager extends React.Component {
-    constructor(){
-        super();
-        this.state ={
-
-        };
-    }
-
+var QualityItemViewPager = React.createClass( {
     render() {
-        let homeCategoryList = this.props.initObj.ListBean;
+        var homeCategoryList = this.props.initObj.ListBean;
 
         return (
             <View
@@ -32,8 +25,8 @@ export default class QualityItemViewPager extends React.Component {
                 />
             </View>
         );
-    }
-    _renderPage(data, pageId){
+    },
+    _renderPage:function(data, pageId){
         return (
             <FlatList
                 data ={data.value}
@@ -41,9 +34,9 @@ export default class QualityItemViewPager extends React.Component {
                 renderItem ={(item)=>this._renderItem}
             />
         );
-    }
+    },
 
-    _renderItem(item, i){
+    _renderItem: function(item, i){
         return (
             <View style ={styles.item2Block} >
                 <View style ={styles.itemBlock}>
@@ -53,11 +46,7 @@ export default class QualityItemViewPager extends React.Component {
             </View>
         );
     }
-
-
-
-
-}
+});
 
 /*export class ScrollViewItem extends React.Component {
     render() {
