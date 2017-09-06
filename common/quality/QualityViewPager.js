@@ -14,7 +14,7 @@ import {
     Image,
 } from 'react-native';
 
-var ViewPager = require('react-native-viewpager');
+import ViewPager from 'react-native-viewpager';
 const Utils = require('../utils/Utils');
 var QualityViewPager = React.createClass({
     render: function () {

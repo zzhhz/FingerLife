@@ -1,103 +1,71 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
-    ScrollView,
     Image,
     FlatList,
 } from 'react-native';
-import ViewPager from 'react-native-viewpager';
-const Utils = require('../utils/Utils');
-var QualityItemViewPager = React.createClass( {
-    render() {
-        var homeCategoryList = this.props.initObj.ListBean;
 
-        return (
-            <View
-                style={styles.itemContainer}>
-                <ViewPager
-                    dataSource ={homeCategoryList}
-                    renderPage = {this._renderPage}
-                    isLoop={true}
-                    autoPlay={false}
-                />
-            </View>
-        );
-    },
-    _renderPage:function(data, pageId){
+var QualityItemViewPager = React.createClass({
+    render: function () {
+        var data = this.props.initObj;
         return (
             <FlatList
-                data ={data.value}
-                numColumns ={4}
-                renderItem ={(item)=>this._renderItem}
+                style={styles.itemContainer}
+                data={data.ListBean}
+                numColumns={4}
+                keyExtractor={this._keyExtractor}
+                initialNumToRender={5}
+                renderItem={(item) => this._renderItem}
             />
         );
     },
 
-    _renderItem: function(item, i){
+    _renderItem: function (item) {
+        var bean = item.value;
         return (
-            <View style ={styles.item2Block} >
-                <View style ={styles.itemBlock}>
-                    <Image style ={styles.itemImage} source ={{uri: Utils.getUrl(item.value.appUrl)}}/>
-                    <Text>{item.value.categoryName}</Text>
+            <View style={styles.item2Block}>
+                <View style={styles.itemBlock}>
+                    <Image style={styles.itemImage} source={{uri: bean.appUrl}}/>
+                    <Text>{bean.categoryName}</Text>
                 </View>
             </View>
         );
-    }
+    },
+    _keyExtractor: function (item, index) {
+        return item.key;
+    },
+
 });
-
-/*export class ScrollViewItem extends React.Component {
-    render() {
-
-        let set = this.props.initObj;
-
-        return (
-            <View style ={styles.itemContainer}>
-                {
-                    set.map((item, i) => this._renderItem(item, i))
-                }
-            </View>
-        );
-    }
-
-    _renderItem(item, i){
-        return (
-            <View>
-
-            </View>
-        );
-    }
-}*/
 
 var styles = StyleSheet.create({
 
 
     itemContainer: {
         flex: 1,
+        backgroundColor: 'blue'
+    },
+    itemBlock: {
+        width: 60,
+        height: 70,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'red',
+        borderWidth: 2
+    },
+    item2Block: {
+        width: 60,
         height: 200,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'red'
     },
-    itemBlock:{
-        width:60,
-        height:70,
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        borderColor:'red',
-        borderWidth:2
-    },
-    item2Block:{
-        width:60,
-        height:200,
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        borderColor:'red'
-    },
-    itemImage:{
-        width:50,
-        height:50,
+    itemImage: {
+        width: 50,
+        height: 50,
     }
 
 });

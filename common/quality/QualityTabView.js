@@ -11,7 +11,9 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView
+    ScrollView,
+    FlatList,
+    Image
 } from 'react-native';
 //导航栏
 var QualityBar = require('./QualitySearchBar');
@@ -19,6 +21,7 @@ var QualityAdsViewPager = require('./QualityViewPager');
 var Utils = require('../utils/Utils');
 var Constants = require('../utils/Constants');
 var QualityItemViewPager = require('./QualityItemViewPager');
+var QualityItem = require('./QualityItem');
 var IMGS = [
     'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024',
     'https://images.unsplash.com/photo-1440964829947-ca3277bd37f8?h=1024',
@@ -46,14 +49,24 @@ var QualityTabView = React.createClass({
     render: function () {
         return (
             <ScrollView style={styles.container}>
-                <QualityBar initObj={{title: '济南'}}/>
-                <QualityAdsViewPager initObj={{obj: this.state.obj}}
-                                     style={styles.altBlock}/>
-                {/*<QualityItemViewPager initObj={{ListBean: this.state.qualityItem}}
-                                       style={styles.altBlock2}/>*/}
+                <View  style={styles.altBlock}>
+                    <QualityBar initObj={{title: '济南'}}/>
+                    <QualityAdsViewPager initObj={{obj: this.state.obj}}/>
+                </View>
+                <FlatList
+                    style={styles.itemContainer}
+                    data={this.state.qualityItem}
+                    numColumns={4}
+                    keyExtractor={this._keyExtractor}
+                    initialNumToRender={5}
+                    renderItem={({item}) => <QualityItem qualityItem={item.value}/>}
+                />
 
             </ScrollView>
         );
+    },
+    _keyExtractor: function (item, index) {
+        return item.key;
     },
     componentDidMount: function () {
         this.getQualityList();
@@ -66,7 +79,7 @@ var QualityTabView = React.createClass({
         Utils.postRequest(Constants.QUALITY_LIST, formData, function (json) {
             if ('200' === json.result) {
                 var ads = [];
-                for (let i in  json.homeAdInfoList) {
+                for (var i in  json.homeAdInfoList) {
                     ads.push(i.appImgpath);
                 }
 
@@ -74,33 +87,20 @@ var QualityTabView = React.createClass({
                     pageHasChanged: (p1, p2) => p1 !== p2,
                 });
                 //下面8个子选项，可能是左右滑动的ViewPager, 每个视图里面最多显示八个 , dddcccc
-                let tmpQualityItem = json.homeCategoryList;
-                let category = [];
-                if (tmpQualityItem.length > 8) {
-                    let len = tmpQualityItem.length / 8 + 1;
-                    //TODO 每8个分为一组
-                    for (let i = 0; i < len; i++) {
-                        let start = i * 8;
-                        let end = start + 8;
-                        if (end > tmpQualityItem.length) {
-                            end = tmpQualityItem.length - 1;
-                        }
-                        var tmpArr = tmpQualityItem.slice(start, end);
-                        category.push({key: i, value: tmpArr});
-                    }
-                } else {
+                var tmp = json.homeCategoryList;
+                var category = [];
+                var i = 0;
+                tmp.map(function (item) {
                     category.push({
-                        key: 0,
-                        value: tmpQualityItem
-                    })
-                }
-
-                alert(category.length);
-
+                        key:i,
+                        value:item
+                    });
+                    i++;
+                })
 
                 that.setState({
                     obj: dataSource.cloneWithPages(ads),
-                    qualityItem: category
+                    qualityItem: that.state.qualityItem.concat(category)
                 });
             } else {
                 alert(json.error);
@@ -115,18 +115,40 @@ var QualityTabView = React.createClass({
 var styles = StyleSheet.create({
     container: {
         paddingTop: 20,
+        flex:1,
+        flexDirection:'row'
     },
     altBlock: {
         flex: 1,
         height: 100,
         backgroundColor: '#ffc655'
     },
-    altBlock2: {
-        flex: 1,
-        height: 300,
-        backgroundColor: '#8588ff'
-    }
 
+    itemContainer: {
+        flex: 1,
+        backgroundColor: 'blue'
+    },
+    itemBlock: {
+        width: 60,
+        height: 70,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'red',
+        borderWidth: 2
+    },
+    item2Block: {
+        width: 60,
+        height: 200,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'red'
+    },
+    itemImage: {
+        width: 50,
+        height: 50,
+    }
 });
 
 module.exports = QualityTabView;
