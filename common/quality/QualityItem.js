@@ -1,13 +1,11 @@
 /**
- * Created by ZZH on 2017/09/06.
- * @Date: 2017/09/06 下午5:04
+ * Created by ZZH on 2017/9/13.
+ * @Date: 2017/9/13
  * @Email: zzh_hz@126.com
  * @QQ: 1299234582
  * @Author: zzh
- * @Description: 首页面-> 搜索栏
+ * @Description:
  */
-
-
 import React from 'react';
 import {
     View,
@@ -16,46 +14,37 @@ import {
     Image
 } from 'react-native';
 
+var Utils = require('../utils/Utils');
 var QualityItem = React.createClass({
     render: function () {
-        var bean = this.props.qualityItem;
-        return (<View style={styles.item2Block}>
-            <View style={styles.itemBlock}>
-                <Image style={styles.itemImage} source={{uri: bean.appUrl}}/>
-                <Text>{bean.categoryName}</Text>
+        var item = this.props.initObj;
+        var url = Utils.getUrl(item.appUrl);
+        return (
+            <View style={styles.container}>
+                <Image style ={styles.image}
+                       source={require('../../resources/img/ic_zhidong.png')}/>
+                <Text style ={styles.text}>{item.categoryName}</Text>
             </View>
-        </View>)
+        );
     }
 });
 
 var styles = StyleSheet.create({
-
-    itemContainer: {
-        flex: 1,
-        backgroundColor: 'blue'
+    container: {
+        height: 80,
+        backgroundColor: '#fff',
+        justifyContent:'center',
+        alignItems:'center',
     },
-    itemBlock: {
-        width: 60,
-        height: 70,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'red',
-        borderWidth: 2
+    image: {
+        height: 65,
+        width:65,
+        resizeMode:'center'
     },
-    item2Block: {
-        width: 60,
-        height: 200,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'red'
-    },
-    itemImage: {
-        width: 50,
-        height: 50,
+    text: {
+        height: 15,
+        color: '#f00'
     }
-
 });
 
 module.exports = QualityItem;

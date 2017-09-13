@@ -12,8 +12,7 @@ import {
     Text,
     View,
     ScrollView,
-    FlatList,
-    Image
+    FlatList
 } from 'react-native';
 //导航栏
 var QualityBar = require('./QualitySearchBar');
@@ -35,41 +34,68 @@ var QualityTabView = React.createClass({
         });
         var adb = [];
         let num = 0;
-        for (let i in  IMGS){
+        for (let i in  IMGS) {
             adb.push(i);
             num++;
         }
 
         return {
             obj: dataSource.cloneWithPages(adb),
-            qualityItem: []
+            qualityItem: [
+                {appUrl: "", categoryName: '曹操送'},
+                {appUrl: "", categoryName: '品质美食'},
+                {appUrl: "", categoryName: '品优生鲜'},
+                {appUrl: "", categoryName: '品牌商超'},
+                {appUrl: "", categoryName: '小龙虾'},
+                {appUrl: "", categoryName: '邀请好友'},
+                {appUrl: "", categoryName: '签到'},
+                {appUrl: "", categoryName: '领券中心'},
+
+            ]
         };
     },
 
     render: function () {
         return (
             <ScrollView style={styles.container}>
-                <View  style={styles.altBlock}>
-                    <QualityBar initObj={{title: '济南'}}/>
-                    <QualityAdsViewPager initObj={{obj: this.state.obj}}/>
+                <QualityBar initObj={{title: '济南'}}/>
+                <QualityAdsViewPager initObj={{obj: this.state.obj}}
+                                     style={styles.altBlock}/>
+                <View style={styles.itemContainer}>
+                    <View style={styles.hori}>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[0]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[1]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[2]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[3]}/>
+                        </View>
+                    </View>
+                    <View style={styles.hori}>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[4]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[5]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[6]}/>
+                        </View>
+                        <View style={styles.items}>
+                            <QualityItem initObj={this.state.qualityItem[7]}/>
+                        </View>
+                    </View>
                 </View>
-                <FlatList
-                    style={styles.itemContainer}
-                    data={this.state.qualityItem}
-                    numColumns={4}
-                    keyExtractor={this._keyExtractor}
-                    initialNumToRender={5}
-                    renderItem={({item}) => <QualityItem qualityItem={item.value}/>}
-                />
-
             </ScrollView>
         );
     },
-    _keyExtractor: function (item, index) {
-        return item.key;
-    },
     componentDidMount: function () {
-        this.getQualityList();
+        //this.getQualityList();
     },
     getQualityList: function () {
         var param = "{\"latitude\":\"36.672103\",\"longitude\":\"116.910049\",\"cityId\":\"370100\",\"overType\":\"1\",\"version\":\"2.14.14\"}";
@@ -79,7 +105,7 @@ var QualityTabView = React.createClass({
         Utils.postRequest(Constants.QUALITY_LIST, formData, function (json) {
             if ('200' === json.result) {
                 var ads = [];
-                for (var i in  json.homeAdInfoList) {
+                for (let i in  json.homeAdInfoList) {
                     ads.push(i.appImgpath);
                 }
 
@@ -87,20 +113,8 @@ var QualityTabView = React.createClass({
                     pageHasChanged: (p1, p2) => p1 !== p2,
                 });
                 //下面8个子选项，可能是左右滑动的ViewPager, 每个视图里面最多显示八个 , dddcccc
-                var tmp = json.homeCategoryList;
-                var category = [];
-                var i = 0;
-                tmp.map(function (item) {
-                    category.push({
-                        key:i,
-                        value:item
-                    });
-                    i++;
-                })
-
                 that.setState({
                     obj: dataSource.cloneWithPages(ads),
-                    qualityItem: that.state.qualityItem.concat(category)
                 });
             } else {
                 alert(json.error);
@@ -115,39 +129,25 @@ var QualityTabView = React.createClass({
 var styles = StyleSheet.create({
     container: {
         paddingTop: 20,
-        flex:1,
-        flexDirection:'row'
     },
     altBlock: {
         flex: 1,
         height: 100,
         backgroundColor: '#ffc655'
     },
-
     itemContainer: {
         flex: 1,
-        backgroundColor: 'blue'
     },
-    itemBlock: {
-        width: 60,
-        height: 70,
-        flex: 1,
+    hori: {
         justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'red',
-        borderWidth: 2
+        alignItems:'center',
+        flexDirection: 'row'
     },
-    item2Block: {
-        width: 60,
-        height: 200,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'red'
-    },
-    itemImage: {
-        width: 50,
-        height: 50,
+    items: {
+        height: 80,
+        width:90,
+        justifyContent:"center",
+        alignItems:'center'
     }
 });
 

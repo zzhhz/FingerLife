@@ -1,50 +1,78 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
-    Text,
     View,
-    Image,
-    FlatList,
 } from 'react-native';
 
+const Utils = require('../utils/Utils');
+var QualityItem = require('./QualityItem');
 var QualityItemViewPager = React.createClass({
-    render: function () {
-        var data = this.props.initObj;
+    render() {
+        var ListBean = this.props.initObj;
         return (
-            <FlatList
-                style={styles.itemContainer}
-                data={data.ListBean}
-                numColumns={4}
-                keyExtractor={this._keyExtractor}
-                initialNumToRender={5}
-                renderItem={(item) => this._renderItem}
-            />
-        );
-    },
-
-    _renderItem: function (item) {
-        var bean = item.value;
-        return (
-            <View style={styles.item2Block}>
-                <View style={styles.itemBlock}>
-                    <Image style={styles.itemImage} source={{uri: bean.appUrl}}/>
-                    <Text>{bean.categoryName}</Text>
+            <View style={styles.itemContainer}>
+                <View style={styles.hori}>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                </View>
+                <View style={styles.hori}>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
+                    <View>
+                        <QualityItem initObj={ListBean[0]}/>
+                    </View>
                 </View>
             </View>
         );
     },
-    _keyExtractor: function (item, index) {
-        return item.key;
-    },
-
 });
+
+/*export class ScrollViewItem extends React.Component {
+    render() {
+
+        let set = this.props.initObj;
+
+        return (
+            <View style ={styles.itemContainer}>
+                {
+                    set.map((item, i) => this._renderItem(item, i))
+                }
+            </View>
+        );
+    }
+
+    _renderItem(item, i){
+        return (
+            <View>
+
+            </View>
+        );
+    }
+}*/
 
 var styles = StyleSheet.create({
 
 
     itemContainer: {
         flex: 1,
-        backgroundColor: 'blue'
+        height: 200,
     },
     itemBlock: {
         width: 60,
@@ -66,6 +94,11 @@ var styles = StyleSheet.create({
     itemImage: {
         width: 50,
         height: 50,
+    },
+    hori: {
+        justifyContent: 'space-around',
+        height: 100,
+
     }
 
 });
