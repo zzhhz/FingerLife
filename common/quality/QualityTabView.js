@@ -27,6 +27,8 @@ var IMGS = [
     'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
 ];
 var ViewPager = require('react-native-viewpager');
+var quality = require('./quality.json');
+var NearStoreItem = require('./NearStoreItem');
 var QualityTabView = React.createClass({
     getInitialState: function () {
         var dataSource = new ViewPager.DataSource({
@@ -51,7 +53,9 @@ var QualityTabView = React.createClass({
                 {appUrl: "", categoryName: '签到'},
                 {appUrl: "", categoryName: '领券中心'},
 
-            ]
+            ],
+            store: [],
+            cate: []
         };
     },
 
@@ -91,11 +95,45 @@ var QualityTabView = React.createClass({
                         </View>
                     </View>
                 </View>
+                <Text>附近商家</Text>
+                <FlatList
+                    style={styles.storeContainer}
+                    onRefresh={() => Utils.loading}
+                    horizontal={true}
+                    data={this.state.store}
+                    renderItem={({item}) => <NearStoreItem initObj={item.value}/>}
+                />
+
+
             </ScrollView>
         );
     },
     componentDidMount: function () {
-        //this.getQualityList();
+        //准备数据附近商家
+        var stores = quality.activityGroupList[0].itemList;
+        var len = stores.length;
+        var dataStore = [];
+        for (let i = 0; i < len; i++) {
+            dataStore.push({
+                key: i,
+                value: stores[i]
+            });
+        }
+        //美食活动
+        var cates = quality.activityGroupList[1].itemList;
+        var dataCates = [];
+        var lens = cates.length;
+        for (let i = 0; i < lens; i++) {
+            dataCates.push({
+                key: i,
+                value: cates[i]
+            });
+        }
+
+        this.setState({
+            store: dataStore,
+            cate: dataCates
+        })
     },
     getQualityList: function () {
         var param = "{\"latitude\":\"36.672103\",\"longitude\":\"116.910049\",\"cityId\":\"370100\",\"overType\":\"1\",\"version\":\"2.14.14\"}";
@@ -140,14 +178,18 @@ var styles = StyleSheet.create({
     },
     hori: {
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         flexDirection: 'row'
     },
     items: {
         height: 80,
-        width:90,
-        justifyContent:"center",
-        alignItems:'center'
+        width: 90,
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    storeContainer: {
+        height: 150,
+        flex: 1
     }
 });
 
